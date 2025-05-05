@@ -24,7 +24,7 @@
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-    h2 {
+    h2, h3 {
       text-align: center;
       color: green;
     }
@@ -55,40 +55,57 @@
       border-radius: 6px;
       margin-bottom: 10px;
     }
+    label {
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>Créer une fiche joueur</h2>
     <form id="formulaire">
+      <label for="nom">Nom du joueur</label>
       <input type="text" id="nom" placeholder="Nom du joueur" required>
-      <input type="number" id="age" placeholder="Âge" required>
-      
+
+      <label for="age">Âge</label>
+      <input type="number" id="age" placeholder="Âge" min="10" required>
+
+      <label for="poste">Poste</label>
       <select id="poste" required>
         <option value="">Poste</option>
         <option>Gardien</option>
         <option>Gardien relanceur</option>
-        <option>Défenseur</option>
-        <option>DFC</option><option>DFG</option><option>DFD</option>
-        <option>Défenseur libéro</option>
-        <option>DLC</option><option>DLG</option><option>DLD</option>
-        <option>Milieu défensif</option>
-        <option>MDC</option><option>MDD</option><option>MDG</option>
-        <option>Milieu offensif</option>
-        <option>MOD</option><option>MOG</option><option>MOC</option>
-        <option>Attaquant de soutien</option>
-        <option>ASC</option><option>ASD</option><option>ASG</option>
-        <option>Attaquant</option>
-        <option>ATC</option><option>ATD</option><option>ATG</option>
+        <option>Défenseur central (DFC)</option>
+        <option>Défenseur gauche (DFG)</option>
+        <option>Défenseur droit (DFD)</option>
+        <option>Libéro</option>
+        <option>Milieu défensif (MDC, MDG, MDD)</option>
+        <option>Milieu offensif (MOC, MOG, MOD)</option>
+        <option>Attaquant de soutien (ASC, ASG, ASD)</option>
+        <option>Attaquant (ATC, ATG, ATD)</option>
       </select>
-      
-      <input type="number" id="note" placeholder="Note actuelle">
-      <input type="number" id="potentiel" placeholder="Potentiel">
+
+      <label for="note">Note actuelle</label>
+      <input type="number" id="note" placeholder="Note actuelle" min="0">
+
+      <label for="potentiel">Potentiel</label>
+      <input type="number" id="potentiel" placeholder="Potentiel" min="0">
+
+      <label for="formation">Club de formation</label>
       <input type="text" id="formation" placeholder="Club de formation">
-      <input type="number" id="coefficient" placeholder="Coefficient de progression">
+
+      <label for="coefficient">Coefficient de progression</label>
+      <input type="number" id="coefficient" placeholder="Coefficient de progression" min="0" step="0.1">
+
+      <label for="etat">État de progression</label>
       <input type="text" id="etat" placeholder="État de progression (jour 1)">
+
+      <label for="marge">Marge de progression</label>
       <input type="text" id="marge" placeholder="Marge de progression">
+
+      <label for="maturite">Plage de maturité</label>
       <input type="text" id="maturite" placeholder="Plage de maturité">
+
       <button type="submit">Ajouter le joueur</button>
     </form>
 
