@@ -1,18 +1,24 @@
 function register() {
-  const username = document.getElementById('reg-username').value;
-  const password = document.getElementById('reg-password').value;
+  const username = document.getElementById('reg-username').value.trim();
+  const password = document.getElementById('reg-password').value.trim();
+
   if (username && password) {
-    localStorage.setItem(`user_${username}`, password);
-    alert("Inscription réussie !");
+    if (localStorage.getItem(`user_${username}`)) {
+      alert("Ce nom d'utilisateur est déjà pris.");
+    } else {
+      localStorage.setItem(`user_${username}`, password);
+      alert("Inscription réussie !");
+    }
   } else {
     alert("Remplissez tous les champs.");
   }
 }
 
 function login() {
-  const username = document.getElementById('login-username').value;
-  const password = document.getElementById('login-password').value;
+  const username = document.getElementById('login-username').value.trim();
+  const password = document.getElementById('login-password').value.trim();
   const storedPass = localStorage.getItem(`user_${username}`);
+
   if (storedPass && storedPass === password) {
     localStorage.setItem("logged_user", username);
     showWelcome(username);
