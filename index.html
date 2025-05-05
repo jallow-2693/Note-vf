@@ -2,35 +2,77 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>VF-Notes</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <title>Connexion - Fiche Joueur</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #43a047;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+    }
+    h2 {
+      text-align: center;
+      color: #4caf50;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #4caf50;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>FootNotes</h1>
-    
-    <div class="form-block">
-      <h2>Inscription</h2>
-      <input type="text" id="reg-username" placeholder="Nom d'utilisateur">
-      <input type="password" id="reg-password" placeholder="Mot de passe">
-      <button onclick="register()">S'inscrire</button>
-    </div>
-
-    <div class="form-block">
-      <h2>Connexion</h2>
-      <input type="text" id="login-username" placeholder="Nom d'utilisateur">
-      <input type="password" id="login-password" placeholder="Mot de passe">
-      <button onclick="login()">Se connecter</button>
-    </div>
-
-    <div id="status" class="form-block" style="display: none;">
-      <h2>Bienvenue, <span id="user-name"></span> !</h2>
-      <a href="fiche.html">Accéder à votre fiche joueur</a><br>
-      <button onclick="logout()">Se déconnecter</button>
-    </div>
+  <div class="login-box">
+    <h2>Connexion</h2>
+    <input type="text" id="username" placeholder="Nom d'utilisateur" required>
+    <input type="password" id="password" placeholder="Mot de passe" required>
+    <button onclick="connexion()">Connexion</button>
+    <button onclick="inscription()">Inscription</button>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    function connexion() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const data = JSON.parse(localStorage.getItem("utilisateurs") || "{}");
+
+      if (data[user] && data[user] === pass) {
+        localStorage.setItem("connecte", user);
+        window.location.href = "fiche.html";
+      } else {
+        alert("Identifiants incorrects !");
+      }
+    }
+
+    function inscription() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const data = JSON.parse(localStorage.getItem("utilisateurs") || "{}");
+
+      if (data[user]) {
+        alert("Nom d'utilisateur déjà pris !");
+      } else {
+        data[user] = pass;
+        localStorage.setItem("utilisateurs", JSON.stringify(data));
+        alert("Inscription réussie !");
+      }
+    }
+  </script>
 </body>
 </html>
