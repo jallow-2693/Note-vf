@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Fiche Joueur</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: repeating-linear-gradient(
+        0deg,
+        #4caf50,
+        #4caf50 100px,
+        #43a047 100px,
+        #43a047 200px
+      );
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+      color: green;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin: 6px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background: #4caf50;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .joueurs {
+      margin-top: 20px;
+    }
+    .joueur {
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Créer une fiche joueur</h2>
+    <form id="formulaire">
+      <input type="text" id="nom" placeholder="Nom du joueur" required>
+      <input type="number" id="age" placeholder="Âge" required>
+      
+      <select id="poste" required>
+        <option value="">Poste</option>
+        <option>Gardien</option>
+        <option>Gardien relanceur</option>
+        <option>Défenseur</option>
+        <option>DFC</option><option>DFG</option><option>DFD</option>
+        <option>Défenseur libéro</option>
+        <option>DLC</option><option>DLG</option><option>DLD</option>
+        <option>Milieu défensif</option>
+        <option>MDC</option><option>MDD</option><option>MDG</option>
+        <option>Milieu offensif</option>
+        <option>MOD</option><option>MOG</option><option>MOC</option>
+        <option>Attaquant de soutien</option>
+        <option>ASC</option><option>ASD</option><option>ASG</option>
+        <option>Attaquant</option>
+        <option>ATC</option><option>ATD</option><option>ATG</option>
+      </select>
+      
+      <input type="number" id="note" placeholder="Note actuelle">
+      <input type="number" id="potentiel" placeholder="Potentiel">
+      <input type="text" id="formation" placeholder="Club de formation">
+      <input type="number" id="coefficient" placeholder="Coefficient de progression">
+      <input type="text" id="etat" placeholder="État de progression (jour 1)">
+      <input type="text" id="marge" placeholder="Marge de progression">
+      <input type="text" id="maturite" placeholder="Plage de maturité">
+      <button type="submit">Ajouter le joueur</button>
+    </form>
+
+    <div class="joueurs" id="listeJoueurs">
+      <h3>Mes joueurs</h3>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("formulaire");
+    const liste = document.getElementById("listeJoueurs");
+
+    function afficherJoueurs() {
+      liste.innerHTML = "<h3>Mes joueurs</h3>";
+      const joueurs = JSON.parse(localStorage.getItem("joueurs")) || [];
+      joueurs.forEach(j => {
+        const div = document.createElement("div");
+        div.className = "joueur";
+        div.innerHTML = `
+          <strong>${j.nom}</strong> (${j.age} ans) - ${j.poste}<br>
+          Note: ${j.note} | Potentiel: ${j.potentiel}<br>
+          Formation: ${j.formation}<br>
+          Coef: ${j.coefficient} | État: ${j.etat}<br>
+          Marge: ${j.marge} | Maturité: ${j.maturite}
+        `;
+        liste.appendChild(div);
+      });
+    }
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const joueur = {
+        nom: document.getElementById("nom").value,
+        age: document.getElementById("age").value,
+        poste: document.getElementById("poste").value,
+        note: document.getElementById("note").value,
+        potentiel: document.getElementById("potentiel").value,
+        formation: document.getElementById("formation").value,
+        coefficient: document.getElementById("coefficient").value,
+        etat: document.getElementById("etat").value,
+        marge: document.getElementById("marge").value,
+        maturite: document.getElementById("maturite").value
+      };
+      const joueurs = JSON.parse(localStorage.getItem("joueurs")) || [];
+      joueurs.push(joueur);
+      localStorage.setItem("joueurs", JSON.stringify(joueurs));
+      form.reset();
+      afficherJoueurs();
+    });
+
+    window.onload = afficherJoueurs;
+  </script>
+</body>
+</html>
